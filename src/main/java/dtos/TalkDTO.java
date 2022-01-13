@@ -1,29 +1,33 @@
-package entities;
+package dtos;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import entities.Talk;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Talk {
+public class TalkDTO {
 
-
-    private static final long serialVersionUID = 1L;
-    @Id
     private long id;
     private String topic;
     private String duration;
 
 
-
-
-    @OneToMany
-    private List<Prop> Props;
-
-    public Talk() {
+    public TalkDTO(Talk talk){
+        this.id = talk.getId();
+        this.topic = talk.getTopic();
+        this.duration = talk.getDuration();
     }
+
+
+    public static List<TalkDTO> getDtos(List<Talk> talkList){
+        List<TalkDTO> talkDTOList = new ArrayList<>();
+        talkList.forEach(t -> talkDTOList.add(new TalkDTO(t)));
+        return talkDTOList;
+
+
+    }
+
+
 
     public long getId() {
         return id;
@@ -47,13 +51,5 @@ public class Talk {
 
     public void setDuration(String duration) {
         this.duration = duration;
-    }
-
-    public List<Prop> getProps() {
-        return Props;
-    }
-
-    public void setProps(List<Prop> props) {
-        Props = props;
     }
 }

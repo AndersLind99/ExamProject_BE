@@ -1,40 +1,38 @@
-package entities;
+package dtos;
 
-import javax.persistence.*;
+import entities.Conference;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@NamedQuery(name = "Conference.deleteAllRows", query = "DELETE FROM Conference")
-public class Conference {
-    private static final long serialVersionUID = 1L;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private long id;
+public class ConferenceDTO {
 
+    private long id;
     private String name;
     private String location;
     private String capacity;
     private String date;
     private String time;
 
-    public Conference() {
+    public ConferenceDTO(Conference c){
+        this.id = c.getId();
+        this.name = c.getName();
+        this.location = c.getLocation();
+        this.capacity = c.getCapacity();
+        this.date = c.getDate();
+        this.time = c.getTime();
+
+
     }
 
-    public Conference(String name, String location, String capacity, String date, String time) {
-        this.name = name;
-        this.location = location;
-        this.capacity = capacity;
-        this.date = date;
-        this.time = time;
-        this.talkList = getTalkList();
+
+    public static List<ConferenceDTO> getDtos(List<Conference> conferenceList) {
+        List<ConferenceDTO> conferenceDTOList = new ArrayList<>();
+        conferenceList.forEach(c -> conferenceDTOList.add(new ConferenceDTO(c)));
+        return conferenceDTOList;
+
+
     }
-
-
-    @OneToMany
-    private List<Talk> talkList;
-
-    // getters & setters
-
 
     public long getId() {
         return id;
@@ -82,13 +80,5 @@ public class Conference {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public List<Talk> getTalkList() {
-        return talkList;
-    }
-
-    public void setTalkList(List<Talk> talkList) {
-        this.talkList = talkList;
     }
 }

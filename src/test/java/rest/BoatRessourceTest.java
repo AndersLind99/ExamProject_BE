@@ -120,6 +120,8 @@ class BoatRessourceTest {
     }
 
 
+    // Utility methods for testing.
+
     private static void setupUsers() {
         EntityManager em = emf.createEntityManager();
         try {
