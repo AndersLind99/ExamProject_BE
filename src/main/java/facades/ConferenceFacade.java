@@ -25,8 +25,18 @@ public class ConferenceFacade {
         return instance;
     }
 
-    public void createConference(ConferenceDTO conferenceDTO){
+    public void createConference(ConferenceDTO conferenceDTO) {
         EntityManager em = emf.createEntityManager();
+        Conference conference = new Conference(conferenceDTO);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(conference);
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
 
 
     }

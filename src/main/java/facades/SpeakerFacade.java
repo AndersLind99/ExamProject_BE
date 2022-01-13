@@ -27,8 +27,18 @@ public class SpeakerFacade {
         return instance;
     }
 
-    public void createSpeaker(ConferenceDTO conferenceDTO){
+    public void createSpeaker(SpeakerDTO speakerDTO) {
         EntityManager em = emf.createEntityManager();
+        Speaker speaker = new Speaker(speakerDTO);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(speaker);
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
 
 
     }
@@ -47,8 +57,6 @@ public class SpeakerFacade {
 
 
     }
-
-
 
 
 }

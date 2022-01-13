@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.ConferenceDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +31,15 @@ public class Conference implements Serializable {
         this.date = date;
         this.time = time;
         this.talkList = getTalkList();
+    }
+
+    public Conference(ConferenceDTO conferenceDTO){
+        this.name = conferenceDTO.getName();
+        this.location = conferenceDTO.getLocation();
+        this.capacity = conferenceDTO.getCapacity();
+        this.date = conferenceDTO.getDate();
+        this.time = conferenceDTO.getTime();
+
     }
 
     @OneToMany

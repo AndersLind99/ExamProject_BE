@@ -9,11 +9,9 @@ import entities.Speaker;
 import facades.SpeakerFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -51,6 +49,16 @@ public class SpeakerResource {
         List<TalkDTO> talkDTOList = FACADE.getAllTalks(id);
 
         return Response.ok().entity(GSON.toJson(talkDTOList)).build();
+    }
+
+    @POST
+    @Path("create")
+    @RolesAllowed("admin")
+    public Response createSpeaker(String body) {
+        SpeakerDTO speakerDTO = GSON.fromJson(body, SpeakerDTO.class);
+        FACADE.createSpeaker(speakerDTO);
+
+        return Response.ok().entity(speakerDTO).build();
     }
 
 

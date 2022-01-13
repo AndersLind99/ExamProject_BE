@@ -4,14 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.ConferenceDTO;
 import dtos.TalkDTO;
+import entities.Conference;
 import facades.ConferenceFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -49,6 +48,16 @@ public class ConferenceResource {
         List<TalkDTO> talkDTOList = FACADE.getAllTalks(id);
 
         return Response.ok().entity(GSON.toJson(talkDTOList)).build();
+    }
+
+    @POST
+    @Path("create")
+    @RolesAllowed("admin")
+    public Response createConference(String body) {
+        ConferenceDTO conferenceDTO = GSON.fromJson(body, ConferenceDTO.class);
+        FACADE.createConference(conferenceDTO);
+
+        return Response.ok().entity(conferenceDTO).build();
     }
 
 

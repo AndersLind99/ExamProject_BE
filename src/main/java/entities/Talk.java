@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.TalkDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +27,13 @@ public class Talk implements Serializable {
     public Talk(String topic, String duration) {
         this.topic = topic;
         this.duration = duration;
+    }
+
+    public Talk(TalkDTO talkDTO){
+        this.topic = talkDTO.getTopic();
+        this.duration = talkDTO.getDuration();
+
+
     }
 
     public long getId() {

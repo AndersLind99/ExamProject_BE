@@ -108,6 +108,5 @@ class ConferenceResourceTest {
                 .assertThat()
                 .body("size()", is(2));
 
-
     }
 }
