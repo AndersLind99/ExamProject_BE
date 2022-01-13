@@ -1,16 +1,17 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
 
 @Entity
 @NamedQuery(name = "Boat.deleteAllRows", query = "DELETE from Boat ")
-public class Boat {
+public class Boat implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
     private String brand;
     private String make;

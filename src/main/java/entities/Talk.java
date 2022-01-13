@@ -1,10 +1,11 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Talk {
+public class Talk implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
@@ -15,12 +16,15 @@ public class Talk {
     private String duration;
 
 
-
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Prop> Props;
 
     public Talk() {
+    }
+
+    public Talk(String topic, String duration) {
+        this.topic = topic;
+        this.duration = duration;
     }
 
     public long getId() {

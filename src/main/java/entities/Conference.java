@@ -1,11 +1,13 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NamedQuery(name = "Conference.deleteAllRows", query = "DELETE FROM Conference")
-public class Conference {
+public class Conference implements Serializable {
     private static final long serialVersionUID = 1L;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -29,9 +31,8 @@ public class Conference {
         this.talkList = getTalkList();
     }
 
-
     @OneToMany
-    private List<Talk> talkList;
+    private List<Talk> talkList = new ArrayList<>();
 
     // getters & setters
 
@@ -90,5 +91,10 @@ public class Conference {
 
     public void setTalkList(List<Talk> talkList) {
         this.talkList = talkList;
+    }
+
+    public void addTalkToList(Talk talk) {
+        this.talkList.add(talk);
+
     }
 }

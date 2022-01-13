@@ -3,10 +3,12 @@ package entities;
 import dtos.SpeakerDTO;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Speaker {
+public class Speaker implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,6 @@ public class Speaker {
     private String gender;
 
     public Speaker() {
-
     }
 
     public Speaker(SpeakerDTO speakerDTO) {
@@ -30,17 +31,16 @@ public class Speaker {
 
     }
 
-    public Speaker(int id, String name, String profession, String gender, List<Talk> talks) {
-        this.id = id;
+    public Speaker( String name, String profession, String gender) {
+
         this.name = name;
         this.profession = profession;
         this.gender = gender;
-        this.talks = talks;
         this.talks = getTalks();
     }
 
-    @ManyToMany
-    private List<Talk> talks;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Talk> talks = new ArrayList<>();
 
     // getters & setters
 
@@ -82,5 +82,10 @@ public class Speaker {
 
     public void setTalks(List<Talk> talks) {
         this.talks = talks;
+    }
+
+    public void addTalk(Talk talk){
+
+        this.talks.add(talk);
     }
 }
