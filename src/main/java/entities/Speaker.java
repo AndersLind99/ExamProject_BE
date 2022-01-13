@@ -2,15 +2,14 @@ package entities;
 
 import dtos.SpeakerDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Speaker {
 
     private static final long serialVersionUID = 1L;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 
@@ -18,11 +17,11 @@ public class Speaker {
     private String profession;
     private String gender;
 
-    public Speaker(){
+    public Speaker() {
 
     }
 
-    public Speaker(SpeakerDTO speakerDTO){
+    public Speaker(SpeakerDTO speakerDTO) {
         this.id = speakerDTO.getId();
         this.name = speakerDTO.getName();
         this.profession = speakerDTO.getProfession();
@@ -41,7 +40,7 @@ public class Speaker {
     }
 
     @ManyToMany
-private List<Talk> talks;
+    private List<Talk> talks;
 
     // getters & setters
 

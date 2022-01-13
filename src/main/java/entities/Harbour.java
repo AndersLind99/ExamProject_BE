@@ -5,6 +5,7 @@ import java.util.List;
 @Entity
 public class Harbour {
     private static final long serialVersionUID = 1L;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
     private String name;
