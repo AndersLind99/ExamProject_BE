@@ -19,7 +19,7 @@
         <!-- TODO: Add the URL to your own tomcat server. Used to deploy your WAR-file -->
         <!-- IMPORTANT-1: If your server uses https (via NGINX) use your DOMAIN NAME and https below: -->
         <!-- IMPORTANT-2: Observe we are NOT using /manager/html but /manager/text for script uploads -->
-        <remote.server>http://anderslind99.com/manager/text</remote.server>
+        <remote.server>https://anderslind99.com/manager/text</remote.server>
 
         <!--TODO: add DB name below -->
 
@@ -29,11 +29,6 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
 
 
         <dependency>
