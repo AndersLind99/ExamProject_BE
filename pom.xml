@@ -23,7 +23,7 @@
 
         <!--TODO: add DB name below -->
 
-        <db.name>Exam</db.name>
+        <db.name>exam</db.name>
 
     </properties>
 
