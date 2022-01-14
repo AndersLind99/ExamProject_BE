@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.ConferenceDTO;
 import dtos.TalkDTO;
-import entities.Conference;
 import facades.ConferenceFacade;
 import utils.EMF_Creator;
 
@@ -56,6 +55,18 @@ public class ConferenceResource {
     public Response createConference(String body) {
         ConferenceDTO conferenceDTO = GSON.fromJson(body, ConferenceDTO.class);
         FACADE.createConference(conferenceDTO);
+
+        return Response.ok().entity(conferenceDTO).build();
+    }
+
+    @PUT
+    @Path("update")
+    @RolesAllowed("admin")
+    public Response update (String body){
+        ConferenceDTO conferenceDTO = GSON.fromJson(body,ConferenceDTO.class);
+        FACADE.updateConference(conferenceDTO);
+
+
 
         return Response.ok().entity(conferenceDTO).build();
     }

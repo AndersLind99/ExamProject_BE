@@ -41,6 +41,27 @@ public class ConferenceFacade {
 
     }
 
+    public ConferenceDTO updateConference(ConferenceDTO conferenceDTO) {
+        EntityManager em = emf.createEntityManager();
+        Conference conference = em.find(Conference.class, conferenceDTO.getId());
+        conference.setName(conferenceDTO.getName());
+        conference.setCapacity(conferenceDTO.getCapacity());
+        conference.setDate(conferenceDTO.getDate());
+        conference.setTime(conference.getTime());
+        conference.setLocation(conferenceDTO.getLocation());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(conference);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+
+        return conferenceDTO;
+    }
+
     public List<ConferenceDTO> getAll() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Conference> query = em.createQuery("SELECT c FROM Conference c", Conference.class);

@@ -9,10 +9,7 @@ import utils.EMF_Creator;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,6 +38,16 @@ public class TalkResource {
         return Response.ok().entity(talkDTO).build();
 
 
+    }
+
+    @PUT
+    @Path("update")
+    @RolesAllowed("admin")
+    public Response update(String body) {
+        TalkDTO talkDTO = GSON.fromJson(body, TalkDTO.class);
+        FACADE.updateTalk(talkDTO);
+
+        return Response.ok().entity(talkDTO).build();
     }
 
 

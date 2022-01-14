@@ -61,5 +61,17 @@ public class SpeakerResource {
         return Response.ok().entity(speakerDTO).build();
     }
 
+    @PUT
+    @Path("update")
+    @RolesAllowed("admin")
+    public Response update(String body) {
+
+        SpeakerDTO speakerDTO = GSON.fromJson(body, SpeakerDTO.class);
+        FACADE.updateSpeaker(speakerDTO);
+
+
+        return Response.ok().entity(speakerDTO).build();
+    }
+
 
 }

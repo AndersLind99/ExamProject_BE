@@ -43,6 +43,26 @@ public class SpeakerFacade {
 
     }
 
+    public SpeakerDTO updateSpeaker(SpeakerDTO speakerDTO) {
+        EntityManager em = emf.createEntityManager();
+        Speaker speaker = em.find(Speaker.class, speakerDTO.getId());
+        speaker.setName(speakerDTO.getName());
+        speaker.setGender(speakerDTO.getGender());
+        speaker.setProfession(speakerDTO.getProfession());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(speaker);
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+
+
+        return speakerDTO;
+    }
+
     public List<SpeakerDTO> getAll() {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Speaker> query = em.createQuery("SELECT s FROM Speaker s", Speaker.class);

@@ -26,6 +26,26 @@ public class TalkFacade {
 
     }
 
+    public TalkDTO updateTalk(TalkDTO talkDTO) {
+        EntityManager em = emf.createEntityManager();
+
+        Talk talk = em.find(Talk.class, talkDTO.getId());
+        talk.setDuration(talkDTO.getDuration());
+        talk.setTopic(talkDTO.getTopic());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(talk);
+            em.getTransaction().commit();
+
+
+        } finally {
+            em.close();
+        }
+
+        return talkDTO;
+    }
+
     public void createTalk(TalkDTO talkDTO) {
         EntityManager em = emf.createEntityManager();
         Talk talk = new Talk(talkDTO);
